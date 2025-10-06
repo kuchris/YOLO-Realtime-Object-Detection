@@ -1,0 +1,33 @@
+# YOLO Real-time Object Detection Configuration
+# Author: [Your Name]
+# Description: Configuration for real-time object detection with YOLOv8
+
+detection:
+  model: "models/yolov8n.pt" # Model file path (nano = fastest)
+  confidence: 0.6 # Minimum confidence threshold (0.0-1.0)
+  iou_threshold: 0.45 # Non-maximum suppression threshold
+  input_size: 640 # Model input resolution
+  device: "cuda" # Processing device (cuda/cpu)
+  half_precision: true # Use FP16 for faster inference
+
+input:
+  source: "youtube" # Default input source (webcam/youtube/file)
+  webcam_id: 0 # Webcam device ID
+  youtube_url: "https://www.youtube.com/watch?v=L_Guz73e6fw" # YouTube video URL
+  video_file: "" # Local video file path
+  resolution: [1280, 720] # Input resolution [width, height]
+  fps: 30 # Target frame rate
+
+display:
+  show_fps: true # Display FPS counter
+  show_confidence: true # Show confidence scores
+  box_thickness: 2 # Bounding box line thickness
+  font_scale: 0.6 # Text font size
+  save_detections: false # Save detection results
+  output_dir: "outputs" # Output directory for saved results
+
+logging:
+  level: "INFO" # Logging level (DEBUG/INFO/WARNING/ERROR)
+  file: "logs/app.log" # Log file path
+  max_size: "10MB" # Maximum log file size
+  backup_count: 5 # Number of backup logs

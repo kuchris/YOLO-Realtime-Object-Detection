@@ -1,0 +1,30 @@
+# YOLO Real-time Object Detection Requirements
+# Core deep learning framework with CUDA support
+torch==2.5.1+cu121
+torchvision==0.20.1+cu121
+torchaudio==2.5.1+cu121
+
+# Computer vision and image processing
+opencv-python>=4.5.0
+
+# Numerical computing
+numpy>=1.21.0
+
+# YOLO model framework
+ultralytics>=8.3.0
+
+# YouTube video handling
+pytube>=15.0.0
+
+# Configuration management
+PyYAML>=6.0
+
+# Visualization and image handling
+matplotlib>=3.5.0
+Pillow>=8.3.0
+
+# Optional development dependencies
+# Uncomment for development use
+# jupyter>=1.0.0
+# tqdm>=4.64.0
+# pytest>=7.0.0

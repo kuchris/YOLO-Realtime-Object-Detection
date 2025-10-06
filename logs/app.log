@@ -1,0 +1,115 @@
+2025-10-07 01:13:59,158 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:13:59,158 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:13:59,171 - detector.yolo_detector - ERROR - Failed to load model: Model file not found: yolov8n.pt
+2025-10-07 01:13:59,172 - __main__ - ERROR - Failed to initialize detector: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:13:59,172 - __main__ - ERROR - Failed to initialize application: Detector initialization failed: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:13:59,172 - root - ERROR - Application failed: Application initialization failed: Detector initialization failed: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:15:42,742 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:15:42,742 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:15:42,752 - detector.yolo_detector - ERROR - Failed to load model: Model file not found: yolov8n.pt
+2025-10-07 01:15:42,752 - __main__ - ERROR - Failed to initialize detector: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:15:42,752 - __main__ - ERROR - Failed to initialize application: Detector initialization failed: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:15:42,752 - root - ERROR - Application failed: Application initialization failed: Detector initialization failed: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:21:23,583 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:21:23,583 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:21:23,596 - detector.yolo_detector - ERROR - Failed to load model: Model file not found: yolov8n.pt
+2025-10-07 01:21:23,596 - __main__ - ERROR - Failed to initialize detector: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:21:23,596 - __main__ - ERROR - Failed to initialize application: Detector initialization failed: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:21:23,596 - root - ERROR - Application failed: Application initialization failed: Detector initialization failed: Model loading failed: Model file not found: yolov8n.pt
+2025-10-07 01:22:06,268 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:22:06,268 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:22:06,282 - detector.yolo_detector - INFO - Loading YOLO model from models\yolov8n.pt
+2025-10-07 01:22:06,600 - detector.yolo_detector - INFO - Half precision (FP16) enabled
+2025-10-07 01:22:06,600 - detector.yolo_detector - INFO - Loaded 80 class names
+2025-10-07 01:22:06,600 - detector.yolo_detector - INFO - YOLO detector initialized: models\yolov8n.pt
+2025-10-07 01:22:06,600 - detector.yolo_detector - INFO - Device: cuda, Half precision: True
+2025-10-07 01:22:06,601 - __main__ - INFO - YOLO detector initialized: {'device': 'cuda', 'model_path': 'models\\yolov8n.pt', 'input_size': 640, 'half_precision': True, 'class_count': 80, 'gpu_name': 'NVIDIA GeForce RTX 4080 Laptop GPU', 'gpu_memory': 12.878086144, 'cuda_version': '12.1'}
+2025-10-07 01:22:06,601 - __main__ - INFO - Visualizer initialized
+2025-10-07 01:22:06,601 - detector.input_manager - INFO - Setting webcam source: camera_id=0
+2025-10-07 01:22:09,423 - detector.input_manager - INFO - Webcam configured: 1280x720 @ 30.0fps
+2025-10-07 01:22:09,424 - __main__ - INFO - Input source setup: {'source_type': 'webcam', 'is_open': True, 'width': 1280, 'height': 720, 'fps': 30.0, 'frame_count': -1}
+2025-10-07 01:22:09,424 - __main__ - INFO - YOLO Detection Application initialized successfully
+2025-10-07 01:22:09,424 - __main__ - INFO - Starting YOLO Detection Application...
+2025-10-07 01:24:09,210 - __main__ - INFO - Quit requested by user
+2025-10-07 01:24:09,210 - __main__ - INFO - Cleaning up resources...
+2025-10-07 01:24:09,606 - __main__ - INFO - Application cleanup completed
+2025-10-07 01:24:09,606 - root - ERROR - Application failed: 'YOLODetectionApp' object has no attribute 'detector'
+2025-10-07 01:26:18,631 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:26:18,631 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:26:18,645 - detector.yolo_detector - INFO - Loading YOLO model from models\yolov8n.pt
+2025-10-07 01:26:18,985 - detector.yolo_detector - INFO - Half precision (FP16) enabled
+2025-10-07 01:26:18,985 - detector.yolo_detector - INFO - Loaded 80 class names
+2025-10-07 01:26:18,985 - detector.yolo_detector - INFO - YOLO detector initialized: models\yolov8n.pt
+2025-10-07 01:26:18,985 - detector.yolo_detector - INFO - Device: cuda, Half precision: True
+2025-10-07 01:26:18,985 - __main__ - INFO - YOLO detector initialized: {'device': 'cuda', 'model_path': 'models\\yolov8n.pt', 'input_size': 640, 'half_precision': True, 'class_count': 80, 'gpu_name': 'NVIDIA GeForce RTX 4080 Laptop GPU', 'gpu_memory': 12.878086144, 'cuda_version': '12.1'}
+2025-10-07 01:26:18,986 - __main__ - INFO - Visualizer initialized
+2025-10-07 01:26:18,986 - detector.input_manager - INFO - Setting webcam source: camera_id=0
+2025-10-07 01:26:21,992 - detector.input_manager - INFO - Webcam configured: 1280x720 @ 30.0fps
+2025-10-07 01:26:21,992 - __main__ - INFO - Input source setup: {'source_type': 'webcam', 'is_open': True, 'width': 1280, 'height': 720, 'fps': 30.0, 'frame_count': -1}
+2025-10-07 01:26:21,992 - __main__ - INFO - YOLO Detection Application initialized successfully
+2025-10-07 01:26:21,992 - __main__ - INFO - Starting YOLO Detection Application...
+2025-10-07 01:26:48,042 - __main__ - INFO - Info overlay disabled
+2025-10-07 01:26:48,541 - __main__ - INFO - Info overlay enabled
+2025-10-07 01:28:23,443 - __main__ - INFO - Quit requested by user
+2025-10-07 01:28:23,443 - __main__ - INFO - Cleaning up resources...
+2025-10-07 01:28:23,842 - __main__ - INFO - Application cleanup completed
+2025-10-07 01:28:23,842 - root - ERROR - Application failed: 'NoneType' object has no attribute 'device'
+2025-10-07 01:31:17,006 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:31:17,006 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:31:17,022 - detector.yolo_detector - INFO - Loading YOLO model from models\yolov8n.pt
+2025-10-07 01:31:17,359 - detector.yolo_detector - INFO - Half precision (FP16) enabled
+2025-10-07 01:31:17,359 - detector.yolo_detector - INFO - Loaded 80 class names
+2025-10-07 01:31:17,359 - detector.yolo_detector - INFO - YOLO detector initialized: models\yolov8n.pt
+2025-10-07 01:31:17,359 - detector.yolo_detector - INFO - Device: cuda, Half precision: True
+2025-10-07 01:31:17,360 - __main__ - INFO - YOLO detector initialized: {'device': 'cuda', 'model_path': 'models\\yolov8n.pt', 'input_size': 640, 'half_precision': True, 'class_count': 80, 'gpu_name': 'NVIDIA GeForce RTX 4080 Laptop GPU', 'gpu_memory': 12.878086144, 'cuda_version': '12.1'}
+2025-10-07 01:31:17,361 - __main__ - INFO - Visualizer initialized
+2025-10-07 01:31:17,361 - detector.input_manager - INFO - Loading YouTube video: https://www.youtube.com/watch?v=Y1jTEyb3wiI
+2025-10-07 01:31:18,148 - detector.input_manager - ERROR - Error setting YouTube source: HTTP Error 400: Bad Request
+2025-10-07 01:31:18,149 - __main__ - WARNING - Failed to setup youtube source, falling back to webcam
+2025-10-07 01:31:18,149 - detector.input_manager - INFO - Setting webcam source: camera_id=0
+2025-10-07 01:31:21,052 - detector.input_manager - INFO - Webcam configured: 1280x720 @ 30.0fps
+2025-10-07 01:31:21,052 - __main__ - INFO - Input source setup: {'source_type': 'webcam', 'is_open': True, 'width': 1280, 'height': 720, 'fps': 30.0, 'frame_count': -1}
+2025-10-07 01:31:21,052 - __main__ - INFO - YOLO Detection Application initialized successfully
+2025-10-07 01:31:21,052 - __main__ - INFO - Starting YOLO Detection Application...
+2025-10-07 01:31:41,833 - __main__ - INFO - Quit requested by user
+2025-10-07 01:31:41,833 - __main__ - INFO - Cleaning up resources...
+2025-10-07 01:31:42,204 - __main__ - INFO - Application cleanup completed
+2025-10-07 01:31:42,204 - root - ERROR - Application failed: 'NoneType' object has no attribute 'device'
+2025-10-07 01:31:52,702 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:31:52,702 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:31:52,714 - detector.yolo_detector - INFO - Loading YOLO model from models\yolov8n.pt
+2025-10-07 01:31:53,048 - detector.yolo_detector - INFO - Half precision (FP16) enabled
+2025-10-07 01:31:53,048 - detector.yolo_detector - INFO - Loaded 80 class names
+2025-10-07 01:31:53,048 - detector.yolo_detector - INFO - YOLO detector initialized: models\yolov8n.pt
+2025-10-07 01:31:53,048 - detector.yolo_detector - INFO - Device: cuda, Half precision: True
+2025-10-07 01:31:53,048 - __main__ - INFO - YOLO detector initialized: {'device': 'cuda', 'model_path': 'models\\yolov8n.pt', 'input_size': 640, 'half_precision': True, 'class_count': 80, 'gpu_name': 'NVIDIA GeForce RTX 4080 Laptop GPU', 'gpu_memory': 12.878086144, 'cuda_version': '12.1'}
+2025-10-07 01:31:53,049 - __main__ - INFO - Visualizer initialized
+2025-10-07 01:31:53,049 - detector.input_manager - INFO - Loading YouTube video: https://www.youtube.com/watch?v=L_Guz73e6fw
+2025-10-07 01:31:53,885 - detector.input_manager - ERROR - Error setting YouTube source: HTTP Error 400: Bad Request
+2025-10-07 01:31:53,886 - __main__ - WARNING - Failed to setup youtube source, falling back to webcam
+2025-10-07 01:31:53,886 - detector.input_manager - INFO - Setting webcam source: camera_id=0
+2025-10-07 01:31:56,699 - detector.input_manager - INFO - Webcam configured: 1280x720 @ 30.0fps
+2025-10-07 01:31:56,699 - __main__ - INFO - Input source setup: {'source_type': 'webcam', 'is_open': True, 'width': 1280, 'height': 720, 'fps': 30.0, 'frame_count': -1}
+2025-10-07 01:31:56,699 - __main__ - INFO - YOLO Detection Application initialized successfully
+2025-10-07 01:31:56,699 - __main__ - INFO - Starting YOLO Detection Application...
+2025-10-07 01:32:07,955 - __main__ - INFO - Quit requested by user
+2025-10-07 01:32:07,955 - __main__ - INFO - Cleaning up resources...
+2025-10-07 01:32:08,383 - __main__ - INFO - Application cleanup completed
+2025-10-07 01:32:08,384 - root - ERROR - Application failed: 'NoneType' object has no attribute 'device'
+2025-10-07 01:35:10,562 - detector.config_manager - INFO - Configuration loaded from config\config.yaml
+2025-10-07 01:35:10,562 - __main__ - INFO - Configuration validated successfully
+2025-10-07 01:35:10,574 - detector.yolo_detector - INFO - Loading YOLO model from models\yolov8n.pt
+2025-10-07 01:35:10,897 - detector.yolo_detector - INFO - Half precision (FP16) enabled
+2025-10-07 01:35:10,897 - detector.yolo_detector - INFO - Loaded 80 class names
+2025-10-07 01:35:10,897 - detector.yolo_detector - INFO - YOLO detector initialized: models\yolov8n.pt
+2025-10-07 01:35:10,897 - detector.yolo_detector - INFO - Device: cuda, Half precision: True
+2025-10-07 01:35:10,898 - __main__ - INFO - YOLO detector initialized: {'device': 'cuda', 'model_path': 'models\\yolov8n.pt', 'input_size': 640, 'half_precision': True, 'class_count': 80, 'gpu_name': 'NVIDIA GeForce RTX 4080 Laptop GPU', 'gpu_memory': 12.878086144, 'cuda_version': '12.1'}
+2025-10-07 01:35:10,899 - __main__ - INFO - Visualizer initialized
+2025-10-07 01:35:10,899 - detector.input_manager - INFO - Loading YouTube video: https://www.youtube.com/watch?v=L_Guz73e6fw
+2025-10-07 01:35:11,790 - detector.input_manager - ERROR - Error setting YouTube source: HTTP Error 400: Bad Request
+2025-10-07 01:35:11,790 - __main__ - WARNING - Failed to setup youtube source, falling back to webcam
+2025-10-07 01:35:11,791 - detector.input_manager - INFO - Setting webcam source: camera_id=0
+2025-10-07 01:35:14,642 - detector.input_manager - INFO - Webcam configured: 1280x720 @ 30.0fps
+2025-10-07 01:35:14,642 - __main__ - INFO - Input source setup: {'source_type': 'webcam', 'is_open': True, 'width': 1280, 'height': 720, 'fps': 30.0, 'frame_count': -1}
+2025-10-07 01:35:14,642 - __main__ - INFO - YOLO Detection Application initialized successfully
+2025-10-07 01:35:14,642 - __main__ - INFO - Starting YOLO Detection Application...
