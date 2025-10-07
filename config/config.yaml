@@ -13,7 +13,7 @@ detection:
 input:
   source: "youtube" # Default input source (webcam/youtube/file)
   webcam_id: 0 # Webcam device ID
-  youtube_url: "https://www.youtube.com/watch?v=L_Guz73e6fw" # YouTube video URL
+  youtube_url: "https://youtu.be/Y1jTEyb3wiI" # YouTube video URL
   video_file: "" # Local video file path
   resolution: [1280, 720] # Input resolution [width, height]
   fps: 30 # Target frame rate

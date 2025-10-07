@@ -61,6 +61,9 @@ class YOLODetectionApp:
         self.show_info = True
         self.frame_count = 0
         self.start_time = time.perf_counter()
+        self.recording = False
+        self.video_writer = None
+        self.output_path = None
 
         try:
             # Initialize components
@@ -204,8 +207,10 @@ class YOLODetectionApp:
                 if not self.paused:
                     success = self._process_frame()
                     if not success:
-                        self.logger.info("No more frames available, ending application")
-                        break
+                        self.logger.info("No more frames available, video ended")
+                        print("\n⏹️  Video ended. Press 'Q' to quit or 'R' to restart...")
+                        # Pause at the end instead of quitting
+                        self.paused = True
                 else:
                     # When paused, just wait for key events
                     time.sleep(0.1)
@@ -255,6 +260,17 @@ class YOLODetectionApp:
         if self.show_help:
             annotated_frame = self.visualizer.create_help_overlay(annotated_frame)
 
+        # Add recording indicator if recording
+        if self.recording:
+            self._draw_recording_indicator(annotated_frame)
+
+        # Record frame if recording is enabled
+        if self.recording and self.video_writer is not None:
+            self.video_writer.write(annotated_frame)
+
+        # Store frame for saving later
+        self.last_frame = annotated_frame
+
         # Display frame
         self.visualizer.display_frame(annotated_frame)
 
@@ -278,9 +294,10 @@ class YOLODetectionApp:
             self.paused = not self.paused
             self.logger.info(f"Application {'paused' if self.paused else 'resumed'}")
         elif key == ord('s'):  # Save frame
-            if hasattr(self, 'last_frame'):
-                self.visualizer.save_frame(self.last_frame)
-                self.logger.info("Frame saved")
+            if hasattr(self, 'last_frame') and self.last_frame is not None:
+                output_path = self.visualizer.save_frame(self.last_frame)
+                self.logger.info(f"Frame saved: {output_path}")
+                print(f"\n📸 Frame saved: {output_path}")
         elif key == ord('r'):  # Reset video
             if self.input_manager.source_type != 'webcam':
                 self.input_manager.reset_source()
@@ -291,6 +308,85 @@ class YOLODetectionApp:
         elif key == ord('i'):  # Toggle info overlay
             self.show_info = not self.show_info
             self.logger.info(f"Info overlay {'enabled' if self.show_info else 'disabled'}")
+        elif key == ord('c'):  # Toggle recording
+            if self.recording:
+                self._stop_recording()
+            else:
+                self._start_recording()
+
+    def _draw_recording_indicator(self, frame: np.ndarray) -> None:
+        """Draw a recording indicator on the frame.
+
+        Args:
+            frame: Frame to draw on (modified in place)
+        """
+        height, width = frame.shape[:2]
+
+        # Draw red circle (recording dot) in top-right corner
+        cv2.circle(frame, (width - 80, 30), 12, (0, 0, 255), -1)
+
+        # Draw "REC" text next to the dot
+        cv2.putText(
+            frame,
+            "REC",
+            (width - 60, 38),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (0, 0, 255),
+            2,
+            cv2.LINE_AA
+        )
+
+    def _start_recording(self) -> None:
+        """Start recording the detection output."""
+        try:
+            # Create outputs directory
+            output_dir = Path("outputs")
+            output_dir.mkdir(exist_ok=True)
+
+            # Generate output filename
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            source_info = self.input_manager.get_source_info()
+            self.output_path = output_dir / f"detection_{timestamp}.mp4"
+
+            # Get video properties
+            width = source_info['width']
+            height = source_info['height']
+            fps = source_info['fps']
+
+            # Create video writer
+            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+            self.video_writer = cv2.VideoWriter(
+                str(self.output_path),
+                fourcc,
+                fps,
+                (width, height)
+            )
+
+            if self.video_writer.isOpened():
+                self.recording = True
+                self.logger.info(f"Started recording to: {self.output_path}")
+                print(f"\n🔴 Recording started: {self.output_path}")
+            else:
+                self.logger.error("Failed to open video writer")
+                self.video_writer = None
+
+        except Exception as e:
+            self.logger.error(f"Error starting recording: {str(e)}")
+            self.recording = False
+            self.video_writer = None
+
+    def _stop_recording(self) -> None:
+        """Stop recording the detection output."""
+        try:
+            if self.video_writer is not None:
+                self.video_writer.release()
+                self.video_writer = None
+                self.recording = False
+                self.logger.info(f"Stopped recording: {self.output_path}")
+                print(f"\n⏹️  Recording saved: {self.output_path}")
+        except Exception as e:
+            self.logger.error(f"Error stopping recording: {str(e)}")
 
     def _signal_handler(self, signum, frame) -> None:
         """Handle system signals.
@@ -307,6 +403,10 @@ class YOLODetectionApp:
         self.logger.info("Cleaning up resources...")
 
         try:
+            # Stop recording if active
+            if self.recording:
+                self._stop_recording()
+
             if hasattr(self, 'input_manager'):
                 self.input_manager._cleanup_current_source()
             if hasattr(self, 'detector') and self.detector is not None:
@@ -331,8 +431,8 @@ class YOLODetectionApp:
             'frames_processed': self.frame_count,
             'average_fps': avg_fps,
             'current_fps': self.visualizer.fps_history[-1] if self.visualizer.fps_history else 0,
-            'source_type': self.input_manager.source_type,
-            'device': self.detector.device
+            'source_type': self.input_manager.source_type if hasattr(self, 'input_manager') else 'unknown',
+            'device': self.detector.device if self.detector is not None else 'unknown'
         }
 
 

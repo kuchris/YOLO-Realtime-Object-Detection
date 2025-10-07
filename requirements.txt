@@ -1,20 +1,24 @@
 # YOLO Real-time Object Detection Requirements
+# Python 3.8+ (3.12 recommended)
+
 # Core deep learning framework with CUDA support
-torch==2.5.1+cu121
-torchvision==0.20.1+cu121
-torchaudio==2.5.1+cu121
+# Note: Install PyTorch separately using the command below for GPU support:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
 
 # Computer vision and image processing
 opencv-python>=4.5.0
 
 # Numerical computing
-numpy>=1.21.0
+numpy>=1.21.0,<2.0.0
 
 # YOLO model framework
 ultralytics>=8.3.0
 
-# YouTube video handling
-pytube>=15.0.0
+# YouTube video downloading (replaces pytube which is deprecated)
+yt-dlp>=2023.3.0
 
 # Configuration management
 PyYAML>=6.0
@@ -23,8 +27,23 @@ PyYAML>=6.0
 matplotlib>=3.5.0
 Pillow>=8.3.0
 
+# HTTP requests (for downloading content)
+requests>=2.28.0
+
+# Scientific computing (required by ultralytics)
+scipy>=1.4.1
+
+# Data processing (required by ultralytics)
+psutil>=5.9.0
+
+# Additional dependencies for ultralytics
+polars>=1.0.0
+
 # Optional development dependencies
 # Uncomment for development use
 # jupyter>=1.0.0
 # tqdm>=4.64.0
 # pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
+# mypy>=0.950

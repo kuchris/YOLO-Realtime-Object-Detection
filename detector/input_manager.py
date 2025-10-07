@@ -15,8 +15,15 @@ from typing import Optional, Tuple, Generator, Union
 
 import cv2
 import numpy as np
-import pytube
-from pytube.exceptions import PytubeError
+
+# Try to import pytube
+try:
+    import pytube
+    from pytube.exceptions import PytubeError
+    PYTUBE_AVAILABLE = True
+except ImportError:
+    PYTUBE_AVAILABLE = False
+    PytubeError = Exception  # Fallback
 
 # Try to import yt-dlp as fallback
 try:
@@ -50,7 +57,7 @@ class InputManager:
         self.logger = logging.getLogger(__name__)
         self.current_source: Optional[cv2.VideoCapture] = None
         self.source_type: str = "none"
-        self.temp_dir = Path(tempfile.gettempdir()) / "yolo_detection"
+        self.temp_dir = Path("videos")
         self.temp_dir.mkdir(exist_ok=True)
 
         # YouTube video handling
@@ -150,15 +157,15 @@ class InputManager:
 
             self.logger.info(f"Loading YouTube video: {youtube_url}")
 
-            # Try pytube first
-            if self._try_pytube_download(youtube_url, quality):
+            # Try pytube first if available
+            if PYTUBE_AVAILABLE and self._try_pytube_download(youtube_url, quality):
                 return True
 
-            # Fallback to yt-dlp if pytube fails
+            # Fallback to yt-dlp if pytube fails or not available
             if YT_DLP_AVAILABLE and self._try_yt_dlp_download(youtube_url, quality):
                 return True
 
-            self.logger.error("Both pytube and yt-dlp failed to download video")
+            self.logger.error("No YouTube downloader available (install pytube or yt-dlp)")
             return False
 
         except Exception as e:
@@ -242,16 +249,25 @@ class InputManager:
             ydl_opts = {
                 'format': f'best[height<={quality.replace("p", "")}]',
                 'outtmpl': str(self.temp_dir / 'youtube_%(id)s.%(ext)s'),
-                'quiet': True,
-                'no_warnings': True,
+                'quiet': False,  # Show progress
+                'no_warnings': False,
+                'noprogress': False,  # Show download progress
             }
 
-            # Extract video info
+            # Extract video info and download
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(youtube_url, download=True)
                 video_id = info['id']
                 title = info.get('title', 'Unknown')
                 temp_path = self.temp_dir / f"youtube_{video_id}.mp4"
+
+                # Check if download succeeded
+                if not temp_path.exists():
+                    # Try with .webm extension
+                    temp_path = self.temp_dir / f"youtube_{video_id}.webm"
+                    if not temp_path.exists():
+                        # Try with .mkv extension
+                        temp_path = self.temp_dir / f"youtube_{video_id}.mkv"
 
             # Open downloaded video
             cap = cv2.VideoCapture(str(temp_path))

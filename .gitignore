@@ -1,0 +1,78 @@
+# Python virtual environment
+yolo-env/
+venv/
+env/
+ENV/
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Downloaded models
+models/*.pt
+!models/.gitkeep
+
+# Downloaded YouTube videos
+videos/*.mp4
+videos/*.webm
+videos/*.mkv
+videos/*.part
+videos/*.ytdl
+!videos/.gitkeep
+
+# Recorded detection outputs
+outputs/*.mp4
+outputs/*.avi
+outputs/*.jpg
+outputs/*.png
+!outputs/.gitkeep
+
+# Logs
+logs/*.log
+!logs/.gitkeep
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# IDE settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+
+# Environment variables
+.env
+.env.local
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
