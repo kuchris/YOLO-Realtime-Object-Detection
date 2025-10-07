@@ -346,28 +346,6 @@ Person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic lig
 - **Application logs**: `logs/app.log`
 - **Model weights**: `models/yolov8*.pt` (auto-downloaded)
 
-## License
-
-MIT License - see LICENSE file for details.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Submit a pull request
-
-## Support
-
-For issues and questions:
-1. Check the **Troubleshooting** section above
-2. Review application logs in `logs/app.log`
-3. Verify system requirements and dependencies
-4. Check GPU/CUDA setup with `nvidia-smi` and PyTorch
-
 ## Acknowledgments
 
 - **YOLOv8** by Ultralytics
@@ -375,8 +353,3 @@ For issues and questions:
 - **OpenCV** for computer vision operations
 - **yt-dlp** for reliable YouTube video downloading
 
----
-
-**Happy detecting! 🚀**
-
-*Built with ❤️ using YOLOv8 and Python*
