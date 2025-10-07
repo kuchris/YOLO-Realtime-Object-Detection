@@ -6,6 +6,10 @@ A comprehensive, production-ready real-time object detection system powered by Y
 
 This system leverages the cutting-edge YOLOv8 (You Only Look Once version 8) neural network architecture to perform real-time object detection with exceptional speed and accuracy. Built with a modular, extensible architecture, it seamlessly handles multiple input sources including live webcam feeds, YouTube videos, and local video files, making it ideal for a wide range of applications from security monitoring to research demonstrations.
 
+<p align="center">
+  <img src="image.png" alt="Comparison">
+</p>
+
 **Key Capabilities:**
 
 - **Real-time Performance**: Achieves 30-60+ FPS on modern NVIDIA GPUs, enabling smooth, lag-free object detection even on high-resolution video streams
