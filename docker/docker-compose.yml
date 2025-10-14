@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  yolo-detector-gpu:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: yolo-realtime-detection:gpu
+    container_name: yolo-detector-gpu
+    runtime: nvidia
+    environment:
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video
+      - HEADLESS=true
+    volumes:
+      # Configuration files
+      - ../config:/app/config:rw
+      # Persistent model weights (auto-downloaded)
+      - ../models:/app/models:rw
+      # Downloaded YouTube videos cache
+      - ../videos:/app/videos:rw
+      # Output recordings
+      - ../outputs:/app/outputs:rw
+      # Application logs
+      - ../logs:/app/logs:rw
+      # X11 socket for display (Linux only)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    # Webcam device (uncomment for Linux with webcam)
+    # devices:
+    #   - /dev/video0:/dev/video0
+    network_mode: host
+    ipc: host
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  yolo-detector-cpu:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.cpu
+    image: yolo-realtime-detection:cpu
+    container_name: yolo-detector-cpu
+    environment:
+      - DISPLAY=${DISPLAY}
+      - HEADLESS=true
+    volumes:
+      # Configuration files
+      - ../config:/app/config:rw
+      # Persistent model weights
+      - ../models:/app/models:rw
+      # Downloaded YouTube videos cache
+      - ../videos:/app/videos:rw
+      # Output recordings
+      - ../outputs:/app/outputs:rw
+      # Application logs
+      - ../logs:/app/logs:rw
+      # X11 socket for display (Linux only)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    # Webcam device (uncomment for Linux with webcam)
+    # devices:
+    #   - /dev/video0:/dev/video0
+    network_mode: host
+    ipc: host
+    stdin_open: true
+    tty: true
+    profiles:
+      - cpu
+# To run GPU version (default):
+# docker-compose up yolo-detector-gpu
+
+# To run CPU version:
+# docker-compose --profile cpu up yolo-detector-cpu
+
+# Or use the helper scripts:
+# ../scripts/docker-run-gpu.sh
+# ../scripts/docker-run-cpu.sh

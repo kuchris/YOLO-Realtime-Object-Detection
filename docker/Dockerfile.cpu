@@ -1,0 +1,68 @@
+# YOLO Real-time Object Detection - CPU Dockerfile
+# Lightweight base image for CPU-only systems
+FROM ubuntu:22.04
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3.11 \
+    python3-pip \
+    python3-dev \
+    # OpenCV dependencies
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
+    # X11 for display
+    libx11-6 \
+    libxcb1 \
+    libxau6 \
+    # Video processing
+    ffmpeg \
+    # Utilities
+    wget \
+    curl \
+    git \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Upgrade pip
+RUN python3 -m pip install --upgrade pip
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install PyTorch CPU version (much smaller download)
+RUN pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
+# Install Python dependencies
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p /app/models /app/videos /app/outputs /app/logs /app/config
+
+# Set permissions
+RUN chmod -R 755 /app
+
+# Set environment variables for optimal CPU performance
+ENV OMP_NUM_THREADS=8
+ENV MKL_NUM_THREADS=8
+ENV OPENCV_VIDEOIO_PRIORITY_MSMF=0
+
+# Note: Update config.yaml to use device: "cpu" before running
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python3 -c "import torch; print('PyTorch OK')" || exit 1
+
+# Default command
+CMD ["python3", "main.py"]

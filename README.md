@@ -54,6 +54,40 @@ Whether you're a researcher exploring computer vision techniques, a developer bu
 
 ## Quick Start
 
+### Option 1: Docker (Recommended - No Setup Required)
+
+**GPU Version:**
+```bash
+# Using helper script (easiest)
+./scripts/docker_run_gpu.sh
+
+# Or using docker-compose
+cd docker
+docker-compose up yolo-detector-gpu
+
+# Or build and run manually
+cd docker
+docker-compose build yolo-detector-gpu
+docker-compose run --rm yolo-detector-gpu
+```
+
+**CPU Version:**
+```bash
+# Using helper script
+./scripts/docker_run_cpu.sh
+
+# Or using docker-compose
+cd docker
+docker-compose --profile cpu up yolo-detector-cpu
+```
+
+**Requirements:**
+- Docker and Docker Compose installed
+- For GPU: NVIDIA GPU with drivers + nvidia-docker runtime
+- See [docs/readme_docker.md](docs/readme_docker.md) for detailed Docker instructions
+
+### Option 2: Local Installation
+
 ### 1. Installation
 
 ```bash
@@ -117,8 +151,12 @@ display:
 ## Project Structure
 
 ```
-yolo/
+YOLO-Realtime-Object-Detection/
 ├── main.py                     # Main application entry point
+├── test_system.py              # System tests
+├── requirements.txt            # Python dependencies
+├── Makefile.bat                # Build automation
+├── image.jpg                   # Sample detection image
 ├── detector/                   # Core detection modules
 │   ├── yolo_detector.py        # YOLO detection engine
 │   ├── input_manager.py        # Multi-source input handling
@@ -128,16 +166,26 @@ yolo/
 ├── config/                     # Configuration files
 │   ├── config.yaml             # Main configuration
 │   └── coco_classes.txt        # COCO class names (80 classes)
+├── docker/                     # Docker configuration
+│   ├── Dockerfile              # GPU Dockerfile
+│   ├── Dockerfile.cpu          # CPU Dockerfile
+│   ├── docker-compose.yml      # Docker Compose config
+│   └── .dockerignore           # Docker ignore rules
+├── scripts/                    # Helper scripts
+│   ├── docker_run_gpu.sh       # Run with GPU support
+│   └── docker_run_cpu.sh       # Run with CPU only
+├── docs/                       # Documentation
+│   ├── quickstart.md           # Quick start guide
+│   ├── readme_docker.md        # Docker instructions
+│   └── project_plan.md         # Project planning docs
 ├── models/                     # Downloaded model weights
 │   └── yolov8n.pt              # YOLOv8nano model (auto-downloaded)
 ├── videos/                     # Downloaded YouTube videos
 │   └── youtube_*.mp4           # Cached video files
 ├── outputs/                    # Recorded detection videos
 │   └── detection_*.mp4         # Timestamped recordings
-├── logs/                       # Application logs
-│   └── app.log                 # Runtime logs
-├── requirements.txt            # Python dependencies
-└── README.md                   # This file
+└── logs/                       # Application logs
+    └── app.log                 # Runtime logs
 ```
 
 ## Usage Guide
@@ -193,6 +241,60 @@ input:
 - **IOU Threshold**: `0.45` (default) - Non-maximum suppression threshold
 - **Input Size**: `640` (default) - Model input resolution (higher = slower but more accurate)
 - **Half Precision**: `true` (default) - Use FP16 for 2x faster inference on compatible GPUs
+
+## Docker Usage
+
+### Why Use Docker?
+
+- No Python/CUDA installation required
+- Isolated environment with all dependencies
+- Easy to run on any system (Windows/Linux/Mac)
+- Separate CPU and GPU configurations
+- No conflicts with existing Python installations
+
+### Docker Commands Reference
+
+**Build images:**
+```bash
+cd docker
+docker-compose build yolo-detector-gpu    # Build GPU version
+docker-compose build yolo-detector-cpu    # Build CPU version
+```
+
+**Run containers:**
+```bash
+# GPU version (default)
+cd docker
+docker-compose up yolo-detector-gpu
+
+# CPU version
+cd docker
+docker-compose --profile cpu up yolo-detector-cpu
+
+# Run in background (detached mode)
+docker-compose up -d yolo-detector-gpu
+
+# View logs
+docker-compose logs -f yolo-detector-gpu
+```
+
+**Stop and cleanup:**
+```bash
+docker-compose down                     # Stop containers
+docker-compose down -v                  # Stop and remove volumes
+docker system prune -a                  # Clean all unused Docker data
+```
+
+**Configuration with Docker:**
+
+Edit `config/config.yaml` on your host machine - changes are automatically reflected in the container through volume mounts.
+
+**Accessing outputs:**
+- Recordings: `outputs/` folder
+- Logs: `logs/` folder
+- Models: `models/` folder (auto-downloaded and cached)
+
+For detailed Docker setup and troubleshooting, see [docs/readme_docker.md](docs/readme_docker.md)
 
 ## Performance
 

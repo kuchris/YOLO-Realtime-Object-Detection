@@ -11,10 +11,10 @@ detection:
   half_precision: true # Use FP16 for faster inference
 
 input:
-  source: "youtube" # Default input source (webcam/youtube/file)
+  source: "youtube" # Default input source (webcam/youtube/video_file)
   webcam_id: 0 # Webcam device ID
-  youtube_url: "https://youtu.be/Y1jTEyb3wiI" # YouTube video URL
-  video_file: "" # Local video file path
+  youtube_url: "https://www.youtube.com/watch?v=MNn9qKG2UFI" # YouTube video URL (sample traffic video)
+  video_file: "image.jpg" # Local video file path (can also be an image)
   resolution: [1280, 720] # Input resolution [width, height]
   fps: 30 # Target frame rate
 
@@ -23,7 +23,7 @@ display:
   show_confidence: true # Show confidence scores
   box_thickness: 2 # Bounding box line thickness
   font_scale: 0.6 # Text font size
-  save_detections: false # Save detection results
+  save_detections: true # Save detection results
   output_dir: "outputs" # Output directory for saved results
 
 logging:

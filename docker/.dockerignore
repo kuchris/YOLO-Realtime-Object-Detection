@@ -1,0 +1,60 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Python cache
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+yolo-env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Project specific
+models/*.pt
+videos/*.mp4
+outputs/*.mp4
+logs/*.log
+
+# Documentation (keep README in image)
+*.md
+!README.md
+
+# Docker files (don't copy docker files into image)
+Dockerfile
+Dockerfile.cpu
+docker-compose.yml
+.dockerignore
+*.sh
+
+# Test files
+tests/
+test_*.py
+*_test.py
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Large files that will be downloaded
+*.weights
+*.pth
+*.onnx

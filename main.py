@@ -10,6 +10,7 @@ License: MIT
 """
 
 import logging
+import os
 import signal
 import sys
 import time
@@ -18,6 +19,11 @@ from typing import Optional
 
 import cv2
 import numpy as np
+
+# Set OpenCV to headless mode if HEADLESS environment variable is set
+if os.getenv('HEADLESS', 'false').lower() == 'true':
+    os.environ['QT_QPA_PLATFORM'] = 'offscreen'
+    cv2.setNumThreads(0)  # Disable threading for headless mode
 
 from detector.config_manager import ConfigManager
 from detector.input_manager import InputManager
@@ -64,6 +70,11 @@ class YOLODetectionApp:
         self.recording = False
         self.video_writer = None
         self.output_path = None
+
+        # Check if running in headless mode (no display)
+        self.headless = os.getenv('HEADLESS', 'false').lower() == 'true'
+        if self.headless:
+            self.logger.info("Running in HEADLESS mode - output will be saved automatically")
 
         try:
             # Initialize components
@@ -202,15 +213,23 @@ class YOLODetectionApp:
         self.logger.info("Starting YOLO Detection Application...")
 
         try:
+            # In headless mode, start recording automatically
+            if self.headless:
+                self._start_recording()
+
             # Main processing loop
             while self.running:
                 if not self.paused:
                     success = self._process_frame()
                     if not success:
                         self.logger.info("No more frames available, video ended")
-                        print("\n⏹️  Video ended. Press 'Q' to quit or 'R' to restart...")
-                        # Pause at the end instead of quitting
-                        self.paused = True
+                        if self.headless:
+                            # In headless mode, stop automatically when video ends
+                            self.running = False
+                        else:
+                            print("\n⏹️  Video ended. Press 'Q' to quit or 'R' to restart...")
+                            # Pause at the end instead of quitting
+                            self.paused = True
                 else:
                     # When paused, just wait for key events
                     time.sleep(0.1)
@@ -271,12 +290,17 @@ class YOLODetectionApp:
         # Store frame for saving later
         self.last_frame = annotated_frame
 
-        # Display frame
-        self.visualizer.display_frame(annotated_frame)
+        # Display frame (skip in headless mode)
+        if not self.headless:
+            self.visualizer.display_frame(annotated_frame)
 
-        # Handle keyboard input
-        key = cv2.waitKey(1) & 0xFF
-        self._handle_key_press(key)
+            # Handle keyboard input
+            key = cv2.waitKey(1) & 0xFF
+            self._handle_key_press(key)
+        else:
+            # In headless mode, just log progress periodically
+            if self.frame_count % 30 == 0:
+                self.logger.info(f"Processed {self.frame_count} frames, FPS: {smoothed_fps:.1f}")
 
         self.frame_count += 1
         return True

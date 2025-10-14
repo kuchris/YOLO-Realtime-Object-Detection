@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv:*)",
+      "Bash(docker-compose run:*)",
+      "Bash(python:*)",
+      "Bash(ffprobe:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
